@@ -1,0 +1,24 @@
+{
+    "bf16": {
+        "enabled": true
+    },
+    "zero_optimization": {
+        "stage": 2,
+        "reduce_bucket_size": 5e7,
+        "allgather_bucket_size": 5e7,
+        "overlap_comm": true,
+        "contiguous_gradients": true
+    },
+    "gradient_clipping": 1,
+    "steps_per_print": 100,
+    "train_micro_batch_size_per_gpu": 12,
+    "gradient_accumulation_steps": 2,
+    "offload_optimizer": {
+        "device": "cpu",
+        "pin_memory": true
+    },
+    "offload_param": {
+        "device": "cpu",
+        "pin_memory": true
+    }
+}
