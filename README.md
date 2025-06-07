@@ -2,22 +2,22 @@
 
 ## Build Training Environment
 
-1. Using `micromamba` to maintain the environment.
+1. Using `micromamba` to maintain the environment
 
 ```bash
 micromamba create -n RL2024-final-env python=3.10
 micromamba activate RL2024-final-env
 ```
 
-2. Install modules.
+2. Install modules
 
 ```bash
 pip install -r requirements.txt
 micromamba install -c nvidia cuda-toolkit=12.6 # <-- It's better to check wich version of your CUDA.
-micromamba install -c conda-forge ninja
+micromamba install -c conda-forge ninja cmake
 ```
 
-3. Compile `flash-attn` from github
+3. Install `flash-attn`
 
 ```bash
 git clone https://github.com/Dao-AILab/flash-attention.git
@@ -57,6 +57,12 @@ bash train/train_dpo.py
 
 > Change the hyperparameters in `train/train_dpo.py`.
 
+### Combine lora model
+
+After training, only the lora weight will be saved, should combine it by using `utils/combine_lora_model.py`.
+
+> Change the path in `utils/combine_lora_model.py`.
+
 ## Evaluation
 
 1. Clone VerilogEval
@@ -65,13 +71,17 @@ bash train/train_dpo.py
 git clone https://github.com/NVlabs/verilog-eval.git
 ```
 
-2. Install ICARUS Verilog
+2. Install ICARUS Verilog, first install some build tools.
 
 ```bash
-git clone https://github.com/steveicarus/iverilog.git && cd iverilog && git checkout v12-branch
+micromamba install -c conda-forge flex bison make gcc gperf autoconf automake
+```
+
+```bash
 PREFIX=$CONDA_PREFIX # <-- Install to your environment.
-./configure --prefix=$PREFIX
-make -j4 # <-- According to how many CPUs you want to use.
+git clone https://github.com/steveicarus/iverilog.git && cd iverilog && git checkout v12-branch
+sh ./autoconf.sh && ./configure --prefix=$PREFIX
+make -j$(nproc) # <-- According to how many CPUs you want to use.
 make install
 ```
 

@@ -378,7 +378,7 @@ def extract_verilog_task(output):
 
 budgets = args.budgets
 build_dir = args.build_dir
-verilog_tasks = collect_verilog_tasks("./")
+verilog_tasks = collect_verilog_tasks("./verilog-eval")
 dataset = VerilogTaskDataset(verilog_tasks)
 dataloadr = DataLoader(
     dataset,
@@ -390,7 +390,7 @@ dataloadr = DataLoader(
 # 建立 LLM 和取樣參數
 llm = LLM(
     model=model_path,
-    tensor_parallel_size=2,
+    tensor_parallel_size=4,
     gpu_memory_utilization=0.9,
     max_model_len=2048,
 )

@@ -14,7 +14,7 @@ def pass_at_k(result_list, n, k):
     return float(np.mean(prob_list))
 
 
-path = "build_generation"
+path = "verilog-eval/build_generation"
 files = [f for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]
 
 parser = argparse.ArgumentParser(description="Analyze Verilog test results.")
@@ -87,7 +87,7 @@ for n, file in enumerate(files):
 
     correct_list.append(correct)
 
-print(correct_list)
+# print(correct_list)
 
 with open("eval/output.csv", "w", newline="") as f:
     writer = csv.writer(f)
@@ -95,5 +95,7 @@ with open("eval/output.csv", "w", newline="") as f:
 
 
 print("Pass@1:", pass_at_k(correct_list, end, 1))
-print("Pass@5:", pass_at_k(correct_list, end, 5))
-print("Pass@10:", pass_at_k(correct_list, end, 10))
+if end >= 5:
+    print("Pass@5:", pass_at_k(correct_list, end, 5))
+if end >= 10:
+    print("Pass@10:", pass_at_k(correct_list, end, 10))

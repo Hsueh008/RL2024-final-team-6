@@ -1,14 +1,14 @@
 #!/bin/bash
 
 model="model/deepseek-coder-6.7b-dpo-lora"
-build_dir="eval/build_generation"
+build_dir="verilog-eval/build_generation"
 budgets=20 # n=20 <-- 根據VerilogEval論文
 task="spec-to-rtl"
 few_shot=1
 
 mkdir -p ${build_dir}
 
-# # 生成verilog程式碼
+# 生成verilog程式碼
 python eval/generate_sample.py \
     --model $model \
     --budgets $budgets \
@@ -26,4 +26,5 @@ cd ${build_dir}
     --with-task=spec-to-rtl
 
 cd ../..
+echo ${PWD}
 python eval/analyze.py --end ${budgets}

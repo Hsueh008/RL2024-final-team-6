@@ -4,6 +4,11 @@
 
 *.ipynb
 *.history
+*.vcd
 
 
 wandb
+eval/output.csv
+model/deepseek-coder-6.7b-dpo-lora/*.safetensors
+model/deepseek-coder-6.7b-dpo-lora/*.json
+model/deepseek-coder-6.7b-dpo-lora/*.jinja
