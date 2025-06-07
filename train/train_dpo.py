@@ -32,7 +32,6 @@ training_args = DPOConfig(
     bf16=True,
     eval_strategy="steps",
     eval_steps=100,
-    load_best_model_at_end=True,
     report_to="wandb",
     run_name="deepseek-coder-6.7b-dpo-lora",
     gradient_checkpointing=True,
