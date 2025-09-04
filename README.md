@@ -52,10 +52,10 @@ accelerate configuration saved at .../train/config/ds_config.json
 ## Training
 
 ```bash
-bash train/train_dpo.py
+bash train/train.sh
 ```
 
-> Change the hyperparameters in `train/train_dpo.py`.
+> Change the hyperparameters in `train/train.sh`.
 
 ### Combine lora model
 
